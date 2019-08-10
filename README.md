@@ -1,2 +1,2 @@
 # twitter-wipe
-A little tool to nuke a twitter account's history.
+A little Go tool to nuke a twitter account's history.
