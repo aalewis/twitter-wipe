@@ -45,7 +45,7 @@ func main() {
 		}
 	}
 
-	fmt.Println("\tStarting..")
+	fmt.Println("  Starting..")
 
 	oauthConfig := oauth1.NewConfig(*config.ConsumerKey, *config.ConsumerSecret)
 	token := oauth1.NewToken(*config.AccessToken, *config.AccessSecret)
@@ -57,7 +57,7 @@ func main() {
 
 	// Delete tweets and retweets
 	if *config.DeleteTweets || *config.DeleteRetweets {
-		fmt.Println("\t\tDeleting tweets and retweets..")
+		fmt.Println("    Deleting tweets and retweets..")
 		for true {
 			tweets, _, err := client.Timelines.UserTimeline(&twitter.UserTimelineParams{
 				ScreenName:      *config.Username,
@@ -76,11 +76,11 @@ func main() {
 
 			for _, tweet := range tweets {
 				if tweet.Retweeted && *config.DeleteRetweets {
-					fmt.Printf("\t\t\tDeleting: retweeted id: %v\n", tweet.ID)
+					fmt.Printf("      Deleting: retweeted id: %v\n", tweet.ID)
 					params := &twitter.StatusUnretweetParams{TrimUser: twitter.Bool(true)}
 					client.Statuses.Unretweet(tweet.ID, params)
 				} else if *config.DeleteTweets {
-					fmt.Printf("\t\t\tDeleting: tweeted id: %v\n", tweet.ID)
+					fmt.Printf("      Deleting: tweeted id: %v\n", tweet.ID)
 					params := &twitter.StatusDestroyParams{TrimUser: twitter.Bool(true)}
 					client.Statuses.Destroy(tweet.ID, params)
 				}
@@ -91,7 +91,7 @@ func main() {
 
 	// Delete likes
 	if *config.DeleteLikes {
-		fmt.Println("\t\tDeleting likes..")
+		fmt.Println("    Deleting likes..")
 		for true {
 			tweets, _, err := client.Favorites.List(&twitter.FavoriteListParams{
 				ScreenName: *config.Username,
@@ -107,7 +107,7 @@ func main() {
 			}
 
 			for _, tweet := range tweets {
-				fmt.Printf("\t\t\tDeleting: liked id: %v\n", tweet.ID)
+				fmt.Printf("      Deleting: liked id: %v\n", tweet.ID)
 				params := &twitter.FavoriteDestroyParams{ID: tweet.ID}
 				client.Favorites.Destroy(params)
 				time.Sleep(10 * time.Second)
@@ -116,5 +116,5 @@ func main() {
 	}
 
 	// Done
-	fmt.Println("\tDone.")
+	fmt.Println("  Done.")
 }
