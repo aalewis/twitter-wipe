@@ -76,14 +76,18 @@ func main() {
 			}
 
 			for _, tweet := range tweets {
-				if tweet.Retweeted && *config.DeleteRetweets {
-					fmt.Printf("      Deleting: retweeted id: %v\n", tweet.ID)
-					params := &twitter.StatusUnretweetParams{TrimUser: twitter.Bool(true)}
-					client.Statuses.Unretweet(tweet.ID, params)
-				} else if *config.DeleteTweets {
-					fmt.Printf("      Deleting: tweeted id: %v\n", tweet.ID)
-					params := &twitter.StatusDestroyParams{TrimUser: twitter.Bool(true)}
-					client.Statuses.Destroy(tweet.ID, params)
+				if tweet.Retweeted {
+					if *config.DeleteRetweets {
+						fmt.Printf("      Deleting: retweeted id: %v\n", tweet.ID)
+						params := &twitter.StatusUnretweetParams{TrimUser: twitter.Bool(true)}
+						client.Statuses.Unretweet(tweet.ID, params)
+					}
+				} else {
+					if *config.DeleteTweets {
+						fmt.Printf("      Deleting: tweeted id: %v\n", tweet.ID)
+						params := &twitter.StatusDestroyParams{TrimUser: twitter.Bool(true)}
+						client.Statuses.Destroy(tweet.ID, params)
+					}
 				}
 				time.Sleep(10 * time.Second)
 			}
