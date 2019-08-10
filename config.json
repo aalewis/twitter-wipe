@@ -1,0 +1,10 @@
+{
+    "Username": "",
+    "ConsumerKey": "",
+    "ConsumerSecret": "",
+    "AccessToken": "",
+    "AccessSecret": "",
+    "DeleteTweets": false,
+    "DeleteRetweets": false,
+    "DeleteLikes": false
+}
