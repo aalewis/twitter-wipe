@@ -71,6 +71,7 @@ func main() {
 			}
 
 			if len(tweets) == 0 {
+				fmt.Println("    No (re)tweets remain.")
 				break
 			}
 
@@ -103,6 +104,7 @@ func main() {
 			}
 
 			if len(tweets) == 0 {
+				fmt.Println("    No likes remain.")
 				break
 			}
 
